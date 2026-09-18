@@ -1,0 +1,1143 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap");
+
+:root {
+  --ink: #10231c;
+  --ink-soft: #2c3f36;
+  --paper: #faf7f0;
+  --moss: #3c5c46;
+  --moss-dark: #24382c;
+  --rust: #b5502f;
+  --rust-dark: #8f3d22;
+  --stone: #eee7d6;
+  --stone-dark: #ddd2ac;
+  --line: #ddd5bd;
+  --danger: #b3402f;
+  --danger-bg: #fbe9e5;
+  --radius: 8px;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.5em;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: 2.6rem; line-height: 1.08; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.15rem; }
+
+a { color: inherit; }
+
+.mono {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.muted { color: #6b7268; font-size: 0.92rem; }
+
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ---------- Nav ---------- */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 2.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  width: 22px;
+  background: var(--paper);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 35, 28, 0.4);
+  z-index: 20;
+}
+
+.nav .logo {
+  font-family: "Fraunces", serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--paper);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nav .logo .mark {
+  color: var(--rust);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--paper);
+  text-decoration: none;
+  margin-left: 2rem;
+  font-size: 0.88rem;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 3px;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.nav-links a:hover, .nav-links a:focus-visible { opacity: 1; border-color: var(--rust); }
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 4.5rem 2.5rem 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 280px;
+  height: 280px;
+  border: 1px solid rgba(250, 247, 240, 0.12);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 1; }
+
+.hero-eyebrow {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--stone-dark);
+  margin-bottom: 0.9rem;
+}
+
+.hero h1 { color: var(--paper); max-width: 640px; }
+
+.hero p.lead {
+  color: rgba(250, 247, 240, 0.72);
+  font-size: 1.05rem;
+  max-width: 480px;
+  margin: 0.9rem 0 0;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+  flex: 1;
+  width: 100%;
+}
+
+/* ---------- Search bar ---------- */
+.search-bar {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 0.4rem;
+  margin: -2.2rem 0 2.5rem;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(16, 35, 28, 0.18);
+}
+
+.search-bar input {
+  flex: 1;
+  min-width: 130px;
+  border: none;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  padding: 0.7rem 0.9rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: transparent;
+}
+
+.search-bar input:last-of-type { border-right: none; }
+.search-bar input:focus-visible { outline: 2px solid var(--moss); outline-offset: -2px; }
+
+.search-bar button { border-radius: 6px; }
+
+button {
+  background: var(--moss);
+  color: var(--paper);
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1.3rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 2px rgba(16, 35, 28, 0.12);
+}
+
+button:hover { background: var(--moss-dark); box-shadow: 0 4px 12px rgba(16, 35, 28, 0.18); }
+button:active { transform: scale(0.98); box-shadow: none; }
+button:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
+button:focus-visible { outline: 2px solid var(--rust); outline-offset: 2px; }
+
+main {
+  animation: page-fade 0.25s ease;
+}
+
+@keyframes page-fade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.4rem;
+}
+
+.section-heading .count {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+  color: #8a8168;
+}
+
+/* ---------- Grid + ticket cards ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.property-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.property-card:hover, .property-card:focus-visible {
+  box-shadow: 0 14px 30px rgba(16, 35, 28, 0.18);
+  transform: translateY(-4px);
+}
+
+.property-card-img, .img-placeholder {
+  height: 160px;
+  background: var(--stone);
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.property-card:hover .carousel img { transform: scale(1.06); }
+
+.img-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a8168;
+  font-size: 0.82rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.img-placeholder.large { height: 300px; border-radius: var(--radius); }
+
+.property-card-body { padding: 1rem 1.1rem 1.2rem; }
+.property-card-body h3 { font-size: 1.05rem; margin-bottom: 0.15rem; }
+
+.ticket-stub {
+  border-top: 1px dashed var(--line);
+  margin-top: 0.8rem;
+  padding-top: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  position: relative;
+}
+
+.ticket-stub::before, .ticket-stub::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  background: var(--paper);
+  border-radius: 50%;
+  border: 1px solid var(--ink);
+}
+
+.ticket-stub::before { left: -1.1rem; }
+.ticket-stub::after { right: -1.1rem; }
+
+.price {
+  color: var(--rust);
+  font-weight: 600;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.95rem;
+}
+
+.price .unit { color: #6b7268; font-weight: 400; font-size: 0.78rem; }
+
+/* ---------- Carousel controls (arrows, dots, counter) ---------- */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(16, 35, 28, 0.55);
+  color: var(--paper);
+  font-size: 1.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease;
+  z-index: 2;
+}
+
+.carousel:hover .carousel-arrow { opacity: 1; }
+
+@media (pointer: coarse) {
+  .carousel-arrow { opacity: 1; }
+}
+
+.carousel-arrow:hover { background: rgba(16, 35, 28, 0.85); }
+.carousel-arrow.left { left: 8px; }
+.carousel-arrow.right { right: 8px; }
+
+.carousel-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  z-index: 2;
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(250, 247, 240, 0.55);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.carousel-dot.active {
+  background: var(--paper);
+  transform: scale(1.3);
+}
+
+.carousel-count {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(16, 35, 28, 0.6);
+  color: var(--paper);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+/* ---------- Property detail ---------- */
+.property-detail-img {
+  height: 340px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.property-detail-img .carousel img {
+  border-radius: 0;
+}
+
+.property-detail-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2.5rem;
+  margin-top: 1.8rem;
+}
+
+@media (max-width: 760px) {
+  .property-detail-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 1.7rem; }
+  .hero { padding: 2.6rem 1.3rem 3rem; }
+  .container { padding: 1.8rem 1.2rem 3rem; }
+
+  .nav { padding: 0.9rem 1.2rem; }
+
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(78vw, 300px);
+    background: var(--ink);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem 1.6rem 2rem;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+    z-index: 25;
+  }
+
+  .nav-links.open { transform: translateX(0); }
+
+  .nav-links a, .nav-links .nav-user {
+    margin-left: 0;
+    margin-bottom: 1.4rem;
+    font-size: 0.95rem;
+  }
+
+  .nav-cta { display: inline-block; }
+
+  .search-bar {
+    flex-direction: column;
+    margin: -1.6rem 0 2rem;
+  }
+
+  .search-bar input {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .search-bar input:last-of-type { border-bottom: none; }
+  .search-bar button { width: 100%; margin-top: 0.4rem; }
+
+  .grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+
+  .booking-form { position: static; }
+
+  .booking-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .seller-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .seller-row-actions { width: 100%; }
+  .seller-row-actions button { flex: 1; }
+}
+
+@media (max-width: 420px) {
+  h1 { font-size: 1.45rem; }
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+.amenities {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.amenities li {
+  background: var(--stone);
+  border: 1px solid var(--line);
+  padding: 0.32rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.82rem;
+}
+
+.booked-ranges {
+  list-style: none;
+  padding: 0;
+  font-size: 0.88rem;
+}
+
+.booked-ranges li {
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed var(--line);
+  color: var(--danger);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+}
+
+/* ---------- Booking form (styled as a boarding-pass panel) ---------- */
+.booking-form {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.booking-form h3 { color: var(--paper); }
+
+.booking-form label {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--stone-dark);
+  font-weight: 500;
+  margin-bottom: 0.9rem;
+}
+
+.booking-form input {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  border: 1px solid rgba(250, 247, 240, 0.22);
+  background: rgba(250, 247, 240, 0.06);
+  color: var(--paper);
+  border-radius: 6px;
+  padding: 0.55rem 0.65rem;
+  font-family: inherit;
+  font-size: 0.92rem;
+}
+
+.booking-form input::placeholder { color: rgba(250, 247, 240, 0.4); }
+.booking-form input:focus-visible { outline: 2px solid var(--rust); }
+
+.date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.total-line {
+  font-size: 0.95rem;
+  margin: 1rem 0;
+  padding-top: 0.9rem;
+  border-top: 1px dashed rgba(250, 247, 240, 0.25);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.total-line strong { color: var(--rust); font-size: 1.05rem; }
+
+.booking-form button {
+  width: 100%;
+  margin-top: 0.5rem;
+  background: var(--rust);
+}
+
+.booking-form button:hover { background: var(--rust-dark); }
+
+.error-banner {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.9rem;
+}
+
+.confirmation-box {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  position: relative;
+}
+
+.confirmation-box .tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--moss);
+  margin-bottom: 0.5rem;
+}
+
+.confirmation-box .dates {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.05rem;
+  margin: 0.4rem 0;
+}
+
+/* ---------- My bookings ---------- */
+.lookup-form {
+  display: flex;
+  gap: 0.7rem;
+  margin: 1.3rem 0 2rem;
+}
+
+.lookup-form input {
+  flex: 1;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  font-family: inherit;
+  background: var(--paper);
+}
+
+.lookup-form input:focus-visible { outline: 2px solid var(--moss); }
+
+.bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.booking-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.3rem;
+}
+
+.booking-item .dates { font-family: "IBM Plex Mono", monospace; font-size: 0.86rem; }
+.booking-item .amount { font-family: "IBM Plex Mono", monospace; font-weight: 600; }
+
+.status-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-family: "IBM Plex Mono", monospace;
+  padding: 0.18rem 0.65rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 0.4rem;
+}
+
+.status-badge.confirmed { background: #e2ede5; color: var(--moss-dark); }
+.status-badge.cancelled { background: var(--danger-bg); color: var(--danger); }
+
+.cancel-btn {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.cancel-btn:hover { background: var(--danger-bg); color: var(--danger); }
+
+/* ---------- Empty / loading states ---------- */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  color: #6b7268;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ---------- Nav auth controls ---------- */
+.nav-cta {
+  background: var(--rust);
+  color: var(--paper) !important;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  opacity: 1 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-size: 0.85rem !important;
+}
+
+.nav-user {
+  color: var(--stone-dark);
+  font-size: 0.82rem;
+  margin-left: 2rem;
+  font-family: "IBM Plex Mono", monospace;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* ---------- Auth forms ---------- */
+.auth-form {
+  background: white;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  margin-top: 1.2rem;
+}
+
+.auth-form label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-bottom: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.auth-form input {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  font-family: inherit;
+  font-size: 0.92rem;
+  background: var(--paper);
+}
+
+.auth-form input:focus-visible { outline: 2px solid var(--moss); }
+
+.auth-form button[type="submit"] { width: 100%; margin-top: 0.4rem; }
+
+.role-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.role-toggle button {
+  flex: 1;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.role-toggle button.active {
+  background: var(--moss);
+  color: var(--paper);
+  border-color: var(--moss);
+}
+
+/* ---------- Seller dashboard ---------- */
+.panel-card {
+  background: white;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.property-form label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.property-form input, .property-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.55rem 0.7rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  background: var(--paper);
+  resize: vertical;
+}
+
+.property-form input:focus-visible, .property-form textarea:focus-visible {
+  outline: 2px solid var(--moss);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+
+.form-actions { display: flex; gap: 0.7rem; margin-top: 0.4rem; }
+
+.ghost-btn {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.ghost-btn:hover { background: var(--stone); }
+
+.seller-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.seller-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+}
+
+.seller-row-actions { display: flex; gap: 0.6rem; }
+
+@media (max-width: 600px) {
+  .form-row, .form-row.three { grid-template-columns: 1fr; }
+}
+
+/* ---------- Image uploader ---------- */
+.image-uploader { margin-bottom: 1.2rem; }
+
+.image-uploader > label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--ink-soft);
+}
+
+.dropzone {
+  border: 2px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 1.8rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  background: var(--paper);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.dropzone:hover, .dropzone:focus-visible {
+  border-color: var(--moss);
+  background: var(--stone);
+}
+
+.dropzone.drag-over {
+  border-color: var(--rust);
+  background: var(--stone);
+}
+
+.dropzone-text {
+  margin: 0 0 0.3rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.image-preview {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(16, 35, 28, 0.85);
+  color: var(--paper);
+  font-size: 15px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-image-btn:hover { background: var(--danger); }
+
+/* ---------- Admin dashboard ---------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin: 1.4rem 0 2.2rem;
+}
+
+.stat-card {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem;
+}
+
+.stat-value {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--rust);
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--stone-dark);
+  margin-top: 0.2rem;
+}
+
+.role-filter { display: flex; gap: 0.5rem; }
+.role-filter button { padding: 0.4rem 0.9rem; font-size: 0.8rem; }
+
+.admin-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.admin-user-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.1rem;
+}
+
+.admin-user-info { flex: 1; min-width: 0; }
+.admin-user-name { font-weight: 600; font-size: 0.95rem; }
+
+.role-select {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.45rem 0.6rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.role-select:disabled { opacity: 0.5; cursor: not-allowed; }
+
+@media (max-width: 700px) {
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .admin-user-row { flex-wrap: wrap; }
+  .admin-user-info { width: 100%; }
+}
+
+/* ---------- Tabs ---------- */
+.tab-bar {
+  display: flex;
+  gap: 0.6rem;
+  margin: 1.2rem 0 1.6rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1rem;
+}
+
+.tab-bar button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tab-badge {
+  background: var(--rust);
+  color: var(--paper);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 0.35rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Background slideshow (Ken Burns) ---------- */
+.bg-slideshow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bg-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1);
+  transition: opacity 1.4s ease;
+}
+
+.bg-slide.active {
+  opacity: 1;
+  animation: kenburns 9s ease-in-out forwards;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.09); }
+}
+
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 35, 28, 0.78) 0%,
+    rgba(16, 35, 28, 0.62) 55%,
+    rgba(16, 35, 28, 0.85) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-slide.active { animation: none; }
+}
+
+/* ---------- Auth page (login/signup) with photo backdrop ---------- */
+.auth-page {
+  position: relative;
+  min-height: calc(100vh - 66px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.2rem;
+  overflow: hidden;
+}
+
+.auth-page-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-page h1 { color: var(--paper); text-align: center; }
+
+.auth-page .auth-form {
+  background: rgba(250, 247, 240, 0.96);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.auth-page .muted-on-dark {
+  color: rgba(250, 247, 240, 0.75);
+  text-align: center;
+}
+
+.auth-page .muted-on-dark a { color: var(--stone); text-decoration: underline; }
+
+/* ---------- Password show/hide toggle ---------- */
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  padding-right: 2.6rem;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0.3rem 0.5rem;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-soft);
+  opacity: 0.7;
+}
+
+.password-toggle:hover { opacity: 1; background: transparent; box-shadow: none; }
+.password-toggle:active { transform: translateY(-50%) scale(0.92); }
+.password-toggle:focus-visible { outline: 2px solid var(--rust); outline-offset: 2px; }
+
+
